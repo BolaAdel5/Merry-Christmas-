@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christmas 2026</title>
+
+<!-- html2canvas -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(#0b3d2e, #000);
+  color: #333;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* Snow */
+.snow {
+  position: fixed;
+  top: 0;
+  color: white;
+  animation: fall linear infinite;
+  z-index: 1;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+.container {
+  padding: 20px;
+  z-index: 2;
+  position: relative;
+}
+
+.card {
+  background: #fff;
+  max-width: 350px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+h1 {
+  color: darkred;
+  margin: 15px 0;
+}
+
+h2 {
+  margin: 5px 0;
+}
+
+.year {
+  color: goldenrod;
+  font-weight: bold;
+}
+
+p {
+  line-height: 1.6;
+  color: #555;
+}
+
+h3 {
+  color: darkred;
+}
+
+.controls {
+  margin-top: 15px;
+}
+
+input {
+  padding: 10px;
+  width: 80%;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: darkred;
+  color: white;
+  cursor: pointer;
+  margin: 5px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="card" id="card">
+    <img src="santa.jpg" alt="Santa Claus">
+
+    <h1>Merry 🎄 Christmas</h1>
+    <h2 id="username">يا صديقي</h2>
+
+    <p>
+      ✨ ومع بداية عام <span class="year">2026</span><br>
+      أتمنالك سنة أهدى، أنجح،<br>
+      وأقرب لكل حلم تتمناه 🤍<br><br>
+      سنة جديدة… قلب جديد<br>
+      فرص أحلى ✨
+    </p>
+
+    <h3>Happy New Year 2026 🎆</h3>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="nameInput" placeholder="اكتب اسمك">
+    <br>
+    <button onclick="generate()">اعمل التهنئة</button>
+    <button onclick="download()">تحميل كصورة</button>
+  </div>
+</div>
+
+<script>
+// Change name
+function generate() {
+  const name = document.getElementById("nameInput").value;
+  document.getElementById("username").innerText =
+    name.trim() ? "يا " + name : "يا صديقي";
+}
+
+// Download image
+function download() {
+  html2canvas(document.getElementById("card")).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "Christmas-2026.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+}
+
+// Snow effect
+for (let i = 0; i < 40; i++) {
+  let snow = document.createElement("div");
+  snow.innerHTML = "❄";
+  snow.className = "snow";
+  snow.style.left = Math.random() * 100 + "vw";
+  snow.style.animationDuration = 3 + Math.random() * 5 + "s";
+  snow.style.opacity = Math.random();
+  snow.style.fontSize = 10 + Math.random() * 20 + "px";
+  document.body.appendChild(snow);
+}
+</script>
+
+</body>
+</html>
