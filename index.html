@@ -3,63 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Christmas 2026</title>
+<title>Merry Christmas 2026</title>
 
 <!-- html2canvas -->
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <style>
+/* ===== Global ===== */
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
-  background: linear-gradient(#0b3d2e, #000);
-  color: #333;
-  text-align: center;
+  background: linear-gradient(135deg, #0b3d2e, #14532d, #7a1f1f);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow-x: hidden;
 }
 
-/* Snow */
-.snow {
+/* Snow dots */
+body::before {
+  content: "";
   position: fixed;
-  top: 0;
-  color: white;
-  animation: fall linear infinite;
-  z-index: 1;
+  inset: 0;
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 90px 90px;
+  opacity: 0.07;
+  pointer-events: none;
 }
 
-@keyframes fall {
-  to {
-    transform: translateY(100vh);
-  }
-}
-
+/* ===== Container ===== */
 .container {
   padding: 20px;
-  z-index: 2;
-  position: relative;
 }
 
+/* ===== Card ===== */
 .card {
-  background: #fff;
-  max-width: 350px;
-  margin: auto;
+  background: rgba(255, 255, 255, 0.96);
+  max-width: 360px;
   padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  border-radius: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  text-align: center;
 }
 
+/* Santa image */
 .card img {
   width: 100%;
-  border-radius: 15px;
+  border-radius: 18px;
+  margin-bottom: 10px;
 }
 
+/* Text */
 h1 {
-  color: darkred;
-  margin: 15px 0;
+  color: #8b0000;
+  margin: 10px 0;
 }
 
 h2 {
-  margin: 5px 0;
+  margin: 6px 0 12px;
+  color: #333;
 }
 
 .year {
@@ -68,38 +71,78 @@ h2 {
 }
 
 p {
-  line-height: 1.6;
-  color: #555;
+  line-height: 1.7;
+  color: #444;
+  font-size: 20px;
+  
 }
 
 h3 {
-  color: darkred;
+  margin-top: 15px;
+  color: #8b0000;
 }
 
+/* ===== Controls ===== */
 .controls {
   margin-top: 15px;
+  text-align: center;
+  
 }
+.controls input {
+  width: 90%;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 14px;
+  border: 1px solid #ccc;
+  margin-bottom: 12px;
+}
+
+<div class="footer">
+  Made with 🤍 by <span>Bola Adel</span>
+</div>
 
 input {
+  width: 85%;
   padding: 10px;
-  width: 80%;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid #ccc;
   margin-bottom: 10px;
+  font-size: 14px;
 }
 
+
 button {
-  padding: 10px 20px;
+  padding: 10px 18px;
   border: none;
-  border-radius: 10px;
-  background: darkred;
+  border-radius: 12px;
+  background: #8b0000;
   color: white;
   cursor: pointer;
   margin: 5px;
+  font-size: 14px;
 }
 
 button:hover {
   opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 420px) {
+  .card {
+    max-width: 92%;
+  }
+}
+.footer {
+  margin-top: 14px;
+  font-size: 20px;
+  color: #fefefe;
+  text-align: center;
+  opacity: 0.85;
+}
+
+.footer span {
+  font-weight: bold;
+  color: #ffd700;
 }
 </style>
 </head>
@@ -107,11 +150,12 @@ button:hover {
 <body>
 
 <div class="container">
+
   <div class="card" id="card">
     <img src="santa.jpg" alt="Santa Claus">
 
     <h1>Merry 🎄 Christmas</h1>
-    <h2 id="username">يا صديقي</h2>
+    <h2 id="username">🤍 صديقي </h2>
 
     <p>
       ✨ ومع بداية عام <span class="year">2026</span><br>
@@ -125,41 +169,37 @@ button:hover {
   </div>
 
   <div class="controls">
-    <input type="text" id="nameInput" placeholder="اكتب اسمك">
+    <input type="text" id="nameInput" placeholder=" اكتب اسمك">
     <br>
     <button onclick="generate()">اعمل التهنئة</button>
-    <button onclick="download()">تحميل كصورة</button>
+    <button onclick="downloadImage()">تحميل كصورة</button>
   </div>
+  <div class="footer">
+  Made with 🤍 by <span>Bola Adel</span>
+</div>
+
 </div>
 
 <script>
-// Change name
+// Generate name
 function generate() {
-  const name = document.getElementById("nameInput").value;
+  const name = document.getElementById("nameInput").value.trim();
   document.getElementById("username").innerText =
-    name.trim() ? "يا " + name : "يا صديقي";
+    name ?  " 🤍 " +name : " 🤍 صديقي  ";
 }
 
-// Download image
-function download() {
-  html2canvas(document.getElementById("card")).then(canvas => {
+// Download as image
+function downloadImage() {
+  html2canvas(document.getElementById("card"), {
+    backgroundColor: "#ffffff",
+    scale: 2,
+    useCORS: true
+  }).then(canvas => {
     const link = document.createElement("a");
     link.download = "Christmas-2026.png";
-    link.href = canvas.toDataURL();
+    link.href = canvas.toDataURL("image/png");
     link.click();
   });
-}
-
-// Snow effect
-for (let i = 0; i < 40; i++) {
-  let snow = document.createElement("div");
-  snow.innerHTML = "❄";
-  snow.className = "snow";
-  snow.style.left = Math.random() * 100 + "vw";
-  snow.style.animationDuration = 3 + Math.random() * 5 + "s";
-  snow.style.opacity = Math.random();
-  snow.style.fontSize = 10 + Math.random() * 20 + "px";
-  document.body.appendChild(snow);
 }
 </script>
 
